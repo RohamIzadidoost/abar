@@ -104,6 +104,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#doros kardane modele empoloyer
+
+#AUTH_USER_MODEL = 'page1.Employerr'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
