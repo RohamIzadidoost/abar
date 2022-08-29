@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'page1/style.css' %} " />
+</head>
+<html>
+  <body dir="rtl">
+	  <h1 style="text-align: center">سامانه انجام کار</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>عنوان کار</th>
+			<th>ارزش کار</th>
+			<th>تخمین زمانی</th>
+			<th>صاحب کار</th>
+			
+          <th>ثبت درخواست</th>
+        </tr>
+      </thead>
+      <tbody>
+      	{% for job in jobs %}
+        <tr>
+          <td>{{job.title}}</td>
+          <td>{{job.value}}</td>
+          <td>{{job.time}}</td>
+          <td>{{job.owner}}</td>
+          <td>{{job.explanations}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+	  	<div class="foot">
+		  	<a href="https://www.google.com" target="_blank">قوانین و مقررات</a>
+		  </div>
+		  <div class="foot">
+		  	<a href="https://www.google.com" target="_blank">درباره ما</a>
+		 </div>
+  </body>
+</html>
