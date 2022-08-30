@@ -18,18 +18,18 @@
         </tr>
       </thead>
       <tbody>
-      	{% for job in jobs %}
+      	{% for job in page_obj %}
         <tr>
           <td>{{job.title}}</td>
           <td>{{job.value}}</td>
           <td>{{job.time}}</td>
           <td>{{job.owner}}</td>
-          <td>{{job.explanations}}</td>
+        <!--  <td>{{job.explanations}}</td> -->
+        <td> <button onclick="location.href='{% url 'page1:moreinf' job.id %}'"> more inf </button> </td>
         </tr>
-        {% endfor %}
-		
+        {% endfor %}	
       </tbody>
-    </table>
+      
     <div class="pagination">
 	    <span class="step-links">
 		{% if page_obj.has_previous %}
@@ -53,5 +53,6 @@
 		  <div class="foot">
 		  	<a href="https://www.google.com" target="_blank">درباره ما</a>
 		 </div>
+    </table>
   </body>
 </html>
