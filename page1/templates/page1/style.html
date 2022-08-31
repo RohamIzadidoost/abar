@@ -18,41 +18,41 @@
         </tr>
       </thead>
       <tbody>
+      	{% for job in page_obj %}
         <tr>
-          <td>ترجمه مقاله</td>
-          <td>300 هزار تومن</td>
-			<td>یک هفته</td>
-			<td>اصغر اقا</td>
-			<td><button>ثبت درخواست</button></td>
+          <td>{{job.title}}</td>
+          <td>{{job.value}}</td>
+          <td>{{job.time}}</td>
+          <td>{{job.owner}}</td>
+        <!--  <td>{{job.explanations}}</td> -->
+        <td> <button onclick="location.href='{% url 'page1:moreinf' job.id %}'"> more inf </button> </td>
         </tr>
-        <tr>
-        	<td>کشیدن اب حوض</td>
-			<td>20 هزار تومن</td>
-			<td>یک روز</td>
-			<td>ثریا خانم</td>
-			<td><button>ثبت درخواست</button></td>
-        </tr>
-        <tr>
-          <td>....</td>
-          <td>....</td>
-			<td>.....</td>
-          <td>.....</td>
-			<td><button>ثبت درخواست</button></td>
-        </tr>
-        <tr>
-          <td>............</td>
-          <td>......</td>
-			<td>.....</td>
-          <td>.....</td>
-			<td><button>ثبت درخواست</button></td>
-        </tr>
+        {% endfor %}	
       </tbody>
-    </table>
+      
+    <div class="pagination">
+	    <span class="step-links">
+		{% if page_obj.has_previous %}
+		    <a href="?page=1">&laquo; first</a>
+		    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+		{% endif %}
+
+		<span class="current">
+		    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		</span>
+
+		{% if page_obj.has_next %}
+		    <a href="?page={{ page_obj.next_page_number }}">next</a>
+		    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+		{% endif %}
+	    </span>
+ 	</div>
 	  	<div class="foot">
 		  	<a href="https://www.google.com" target="_blank">قوانین و مقررات</a>
 		  </div>
 		  <div class="foot">
 		  	<a href="https://www.google.com" target="_blank">درباره ما</a>
 		 </div>
+    </table>
   </body>
 </html>
