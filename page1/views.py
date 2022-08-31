@@ -10,6 +10,7 @@ class JobListView(ListView):
     model = Job
 
 def index(request):
+    request.session.set_test_cookie()
     jobs = Job.objects.all()
     paginator = Paginator(jobs , 2)
     page_number = request.GET.get('page')
@@ -20,6 +21,9 @@ def index(request):
     }
     return render(request , "page1/index.html" , context)
 def moreinf(request, num):
+    if request.session.test_cookie_worked():
+        print (">>>> TESTWORKED!!!!" )
+        request.session.delete_test_cookie()
     job = Job.objects.get(pk=num)
     return render(request, 'page1/moreinf.html' , {'job': job})
     
