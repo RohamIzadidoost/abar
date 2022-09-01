@@ -14,19 +14,19 @@
             <h1> سامانه‌ی انجام کار</h1>
             <div>
                 <div class="col-sm-12">
-                    <h3 style="display: inline-block">نوشتن تمرینای احتمال</h3>
+                    <h3 style="display: inline-block">{{job.title}}</h3>
                     <a class="btn btn-default">انجام می‌دم</a>
                     <hr/>
                 </div>
                 <div class="col-sm-2"></div>
                 <div class="col-sm-4">ساخته شده در ۲ رو پیش</div>
-                <div class="col-sm-3">۲۰۰۰ تومان</div>
-                <div class="col-sm-3">۱ روز</div>
+                <div class="col-sm-3">{{job.value}} تومان</div>
+                <div class="col-sm-3">{{job.time}} روز </div>
                 <div class="col-sm-12">
                     <br/>
                     توضیحات:
                     <br/>
-                    یه مشت تمرینه می‌خوام حل کنی دیگه!
+              {{job.explanations}}
                 </div>
             </div>
         </div>
