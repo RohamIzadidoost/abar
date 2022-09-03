@@ -5,6 +5,7 @@ from django.views.generic import ListView
 from django.core.paginator import Paginator
 from django.template import RequestContext
 from django.shortcuts import redirect
+from .forms import *
 # Create your views here.
 
 class JobListView(ListView):
@@ -26,6 +27,11 @@ def index(request):
            'jobs': jobs,
            'page_obj': page_obj
     }
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print(">>>>YEY!")
     response = render(request, 'page1/index.html', context_dic)
     response.set_cookie('last' , page_number)
     return response

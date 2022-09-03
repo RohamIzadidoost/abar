@@ -54,7 +54,9 @@
             </form>
             <hr/>
             <h3>ثبت نام</h3>
-            <form>
+            <form method="POST">
+            <fieldset>
+            {% csrf_token %}
                 <div class="form-group">
                     <input name="username" maxlength="100" class="form-control" placeholder="نام‌کاربری">
                 </div>
@@ -71,6 +73,7 @@
                     <label><input name="master" type="checkbox">کارفرما</label>
                 </div>
                 <button class="btn btn-default btn-block">ثبت نام</button>
+            </fieldset>
             </form>
         </div>
     </div>
