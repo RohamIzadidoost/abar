@@ -14,19 +14,23 @@ class JobListView(ListView):
 
 def index(request):
     request.session.set_test_cookie()
-    jobs = Job.objects.all()
-    paginator = Paginator(jobs, 20)
     if 'last' in request.COOKIES:
-        #page_number = request.GET.get('page')
-        page_number = request.COOKIES['last']
+        num  = request.COOKIES['last']
+        print(">>>>>>>" , num)
+        ans = "explanations/" 
+        ans = ans + str(num) 
+        return redirect(ans)
     else :
-        page_number = request.GET.get('page')
-
+        print(" NOOO FUCKING COOKIE WTF")
+    jobs = Job.objects.all()
+    paginator = Paginator(jobs , 2)
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context_dic = {
-           'jobs': jobs,
-           'page_obj': page_obj
+    context = {
+    'jobs' : jobs , 
+    'page_obj': page_obj 
     }
+<<<<<<< HEAD
 
     #signup : 
     if request.method == "POST":
@@ -55,6 +59,9 @@ def index(request):
     response.set_cookie('last' , page_number)
     return response
 
+=======
+    return render(request , "page1/index.html" , context)
+>>>>>>> parent of 3662052... fixing cookie cause misunderstanding the cookir task
 
 def moreinf(request, num):
     context = RequestContext(request)
@@ -65,7 +72,7 @@ def moreinf(request, num):
     job = Job.objects.get(pk=num)
    # response = render_to_response('explanations/details.html' , {'job': job} , context)
     response =  render(request, 'explanations/details.html' , {'job': job})
-    #response.set_cookie('last' , num)
+    response.set_cookie('last' , num)
     return response
    
 
