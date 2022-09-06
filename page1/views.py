@@ -27,11 +27,30 @@ def index(request):
            'jobs': jobs,
            'page_obj': page_obj
     }
+
+    #signup : 
     if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            print(">>>>YEY!")
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        password_rpt = request.POST.get('password_rpt')
+        master = (request.POST.get('master') == 'on')
+       # print(">>>master: " , master)
+        if 2 < 0 : 
+            print(">>user exists") #handle it later
+        else: 
+           user = User.objects.create_user(email=email , username=username , password=password)
+           if(master):
+               NewEmp = Employer()
+               NewEmp.User = user
+           else:
+                NewEmp = Employee()
+                NewEmp.User = user
+            
+           NewEmp.save()
+ 
+
+
     response = render(request, 'page1/index.html', context_dic)
     response.set_cookie('last' , page_number)
     return response
