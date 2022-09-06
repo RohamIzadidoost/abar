@@ -1,15 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-class Employer(models.Model):
-    user = models.OneToOneField(User , default=None , on_delete=models.CASCADE , null=True)
-class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE , null = True)
+#class Question(models.Model):
+   # question_text = models.CharField(max_length=200)
+class karfarma(models.Model):
+    user = models.OneToOneField(User , on_delete=models.CASCADE)
+class karmand(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE )
     token = models.CharField(max_length = 64 , default = "")
-class Job(models.Model):
-    user = models.OneToOneField(User, default=None , on_delete=models.CASCADE , null=True ) 
+class kar(models.Model):
+    #user = models.OneToOneField(User, on_delete=models.CASCADE ) 
     title = models.CharField(max_length = 100)
     value = models.IntegerField(default=0)
     time = models.IntegerField(default=0)

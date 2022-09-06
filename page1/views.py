@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Job
+from .models import *
 from django.views.generic import ListView
 from django.core.paginator import Paginator
 from django.template import RequestContext
@@ -8,9 +8,9 @@ from django.shortcuts import redirect
 from .forms import *
 # Create your views here.
 
-class JobListView(ListView):
-    paginate_by = 2
-    model = Job
+#class JobListView(ListView):
+    #paginate_by = 2
+    #model = Kar
 
 def index(request):
     request.session.set_test_cookie()
@@ -22,7 +22,7 @@ def index(request):
         return redirect(ans)
     else :
         print(" NOOO FUCKING COOKIE WTF")
-    jobs = Job.objects.all()
+    jobs = kar.objects.all()
     paginator = Paginator(jobs , 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -30,7 +30,6 @@ def index(request):
     'jobs' : jobs , 
     'page_obj': page_obj 
     }
-<<<<<<< HEAD
 
     #signup : 
     if request.method == "POST":
@@ -45,10 +44,10 @@ def index(request):
         else: 
            user = User.objects.create_user(email=email , username=username , password=password)
            if(master):
-               NewEmp = Employer()
+               NewEmp = karfarma()
                NewEmp.User = user
            else:
-                NewEmp = Employee()
+                NewEmp = karmand()
                 NewEmp.User = user
             
            NewEmp.save()
@@ -59,9 +58,6 @@ def index(request):
     response.set_cookie('last' , page_number)
     return response
 
-=======
-    return render(request , "page1/index.html" , context)
->>>>>>> parent of 3662052... fixing cookie cause misunderstanding the cookir task
 
 def moreinf(request, num):
     context = RequestContext(request)
@@ -69,7 +65,7 @@ def moreinf(request, num):
         print (">>>> TESTWORKED!!!!" )
         request.session.delete_test_cookie()
     
-    job = Job.objects.get(pk=num)
+    job = Kar.objects.get(pk=num)
    # response = render_to_response('explanations/details.html' , {'job': job} , context)
     response =  render(request, 'explanations/details.html' , {'job': job})
     response.set_cookie('last' , num)

@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Question , Employee, Job
+from .models import  karfarma , kar
 # Register you1r models here.
-admin.site.register(Question)
-admin.site.register(Employee)
-admin.site.register(Job)
+admin.site.register(karfarma)
+admin.site.register(kar)
