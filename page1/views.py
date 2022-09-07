@@ -14,19 +14,12 @@ from .forms import *
 
 def index(request):
     request.session.set_test_cookie()
-    if 'last' in request.COOKIES:
-        num  = request.COOKIES['last']
-        print(">>>>>>>" , num)
-        ans = "explanations/" 
-        ans = ans + str(num) 
-        return redirect(ans)
-    else :
-        print(" NOOO FUCKING COOKIE WTF")
+    
     jobs = kar.objects.all()
     paginator = Paginator(jobs , 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {
+    context_dic = {
     'jobs' : jobs , 
     'page_obj': page_obj 
     }
