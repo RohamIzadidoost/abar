@@ -45,8 +45,10 @@
             </div>
         </div>
         <div class="col-md-3">
+      	    {% if not request.user.is_authenticated %} 
             <h3> ورود </h3>
-            <form>
+            <form action="{% url 'page1:LoginView' %}" method="POST">
+            {% csrf_token %}
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="ایمیل">
                 </div>
@@ -75,6 +77,13 @@
                 <button class="btn btn-default btn-block">ثبت نام</button>
             </fieldset>
             </form>
+        {% else %}
+        	<p> {{ request.user.uername }} <p>
+        	<form action="{% url 'page1:LogoutView' %}" method="POST">
+        	{% csrf_token %}
+        	 <button class="btn btn-default btn-block">خروج</button>
+        	</form>
+        {% endif %}
         </div>
     </div>
     <footer>
