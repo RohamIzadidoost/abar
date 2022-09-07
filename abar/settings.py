@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'abar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'abardb' , 
-        'USER': 'Roham',
+        'NAME': 'newabar' , 
+        'USER': 'postgres',
         'PASSWORD': 'abar',
         'HOST': '127.0.0.1',
         'PORT': '5432',

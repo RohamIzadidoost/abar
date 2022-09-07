@@ -9,10 +9,12 @@ class karmand(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE )
     token = models.CharField(max_length = 64 , default = "")
 class kar(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE ) 
+    user = models.OneToOneField(User, on_delete=models.CASCADE ) 
     title = models.CharField(max_length = 100)
     value = models.IntegerField(default=0)
     time = models.IntegerField(default=0)
     owner = models.CharField(max_length = 100)
     explanations = models.CharField(max_length = 500)
     token = models.CharField(max_length = 64 , default = "")
+class newmodel(models.Model):
+    name = models.CharField(max_length = 50)

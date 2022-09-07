@@ -65,7 +65,7 @@ def moreinf(request, num):
         print (">>>> TESTWORKED!!!!" )
         request.session.delete_test_cookie()
     
-    job = Kar.objects.get(pk=num)
+    job = kar.objects.get(pk=num)
    # response = render_to_response('explanations/details.html' , {'job': job} , context)
     response =  render(request, 'explanations/details.html' , {'job': job})
     response.set_cookie('last' , num)
