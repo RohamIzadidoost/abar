@@ -9,6 +9,7 @@ from django.contrib.auth import *
 from django.contrib.auth.models import *
 from .forms import *
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #class JobListView(ListView):
@@ -17,12 +18,9 @@ from django.urls import reverse
 
 def index(request):
     request.session.set_test_cookie()
-
-    print(request.user.username , request.user.is_authenticated)
-
     jobs = kar.objects.all()
     #pagination broke in reverting , fix it later
-    paginator = Paginator(jobs , 2)
+    paginator = Paginator(jobs , 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context_dic = {
@@ -62,8 +60,21 @@ def index(request):
 
 
 def AddJob(request):
-    user = request.user 
-    return render(request , 'AddJob/AddJob.html' , {'user': user})
+    user = request.user
+    if request.method == 'POST':
+        form = karForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(">>>>>>>>>>>>formt not valid")
+    else:
+        form = karForm()
+    context = {
+        'user': user,
+        'form': form,
+    }
+    render(request , 'AddJob/AddJob.html' , context)
+    return redirect(reverse('page1:index'))
 
 def LoginView(request):
     username = request.POST.get('username')
@@ -80,7 +91,7 @@ def LogoutView(request):
     logout(request)
     return redirect(reverse('page1:index'))
 
-
+@login_required
 def moreinf(request, num):
     context = RequestContext(request)
     if request.session.test_cookie_worked():
@@ -88,9 +99,23 @@ def moreinf(request, num):
         request.session.delete_test_cookie()
 
     job = kar.objects.get(pk=num)
-    # response = render_to_response('explanations/details.html' , {'job': job} , context)
-    response = render(request, 'explanations/details.html', {'job': job})
-    response.set_cookie('last', num)
+    bisahab = False
+    if job.user == None :
+        bisahab = True
+    print(">>>>>> job user "  , job.user , bisahab)
+    context = {
+        'job':job,
+        'request': request,
+        'bisahab': bisahab,
+    }
+    response = render(request, 'explanations/details.html', context)
     return response
 
-
+@login_required
+def AssignTask(request, num):
+    job = kar.objects.get(pk=num)
+    job.user = request.user
+    print(">>>>>" ,job.title , job.user)
+    job.save()
+    return redirect(reverse('page1:index'))
+    

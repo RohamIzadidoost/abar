@@ -24,7 +24,14 @@
                 </tr>
                 </thead>
             </table>
-            
+         <form action="{% url 'page1:AddJob' %}" method="POST">
+            {% csrf_token %}
+                <div class="form-group">
+                    {{ form }}
+                    <input type="submit" value="submit">
+                </div>
+               <!-- <button class="btn btn-default btn-block">ثبت</button> -->
+          </form>
         <div class="col-md-3">
       	    {% if request.user.is_authenticated %}
         	<h3> سلام {{ request.user.username }} عزیز </h3>

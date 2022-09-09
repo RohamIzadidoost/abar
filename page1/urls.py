@@ -8,4 +8,5 @@ urlpatterns = [
         path('login' , views.LoginView , name='LoginView'),
         path('logout', views.LogoutView , name='LogoutView'),
         path('AddJob', views.AddJob , name='AddJob'),
+        path('AssignTask/<int:num>', views.AssignTask , name='AssignTask')
         ]
