@@ -7,4 +7,5 @@ urlpatterns = [
         path('explanations/<int:num>' , views.moreinf , name='moreinf'),
         path('login' , views.LoginView , name='LoginView'),
         path('logout', views.LogoutView , name='LogoutView'),
+        path('AddJob', views.AddJob , name='AddJob'),
         ]

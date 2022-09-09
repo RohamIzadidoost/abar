@@ -50,7 +50,10 @@
             <form action="{% url 'page1:LoginView' %}" method="POST">
             {% csrf_token %}
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" placeholder="ایمیل">
+                    <input type="username" class="form-control" name="username" placeholder="نام کاربری">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="رمز عبور">
                 </div>
                 <button class="btn btn-default btn-block">ورود</button>
             </form>
@@ -78,7 +81,13 @@
             </fieldset>
             </form>
         {% else %}
-        	<p> {{ request.user.uername }} <p>
+        	<h3> سلام {{ request.user.username }} عزیز </h3>
+        	
+        	<form action="{% url 'page1:AddJob' %}" method="POST">
+        	{% csrf_token %}
+        	 <button class="btn btn-default btn-block">افزودن کار</button>
+        	</form>
+        	
         	<form action="{% url 'page1:LogoutView' %}" method="POST">
         	{% csrf_token %}
         	 <button class="btn btn-default btn-block">خروج</button>

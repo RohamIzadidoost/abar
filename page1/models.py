@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
    # question_text = models.CharField(max_length=200)
 class karfarma(models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE)
+    master = models.IntegerField(default=1)
 class karmand(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE )
+    master = models.IntegerField(default=0)
     token = models.CharField(max_length = 64 , default = "a")
 class kar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE ) 

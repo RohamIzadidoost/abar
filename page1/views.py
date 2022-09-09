@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from django.views.generic import ListView
@@ -61,28 +61,36 @@ def index(request):
     return response
 
 
-def moreinf(request, num):
-    context = RequestContext(request)
-    if request.session.test_cookie_worked():
-        print (">>>> TESTWORKED!!!!" )
-        request.session.delete_test_cookie()
-    
-    job = kar.objects.get(pk=num)
-   # response = render_to_response('explanations/details.html' , {'job': job} , context)
-    response =  render(request, 'explanations/details.html' , {'job': job})
-    response.set_cookie('last' , num)
-    return response
+def AddJob(request):
+    user = request.user 
+    return render(request , 'AddJob/AddJob.html' , {'user': user})
+
 def LoginView(request):
-    email = request.POST.get('email')
-    if User.objects.filter(email=email).count() > 0 :
-        user = authenticate(request , email=email)
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
         login(request , user)
-        print(">>>>>loged in")
+        #not valid username and pass should be handled
     else :
         print(">>>>account doesn't exist!" , User.objects.filter(email = email).count())
     return redirect(reverse('page1:index'))
+
 def LogoutView(request):
     logout(request)
     return redirect(reverse('page1:index'))
+
+
+def moreinf(request, num):
+    context = RequestContext(request)
+    if request.session.test_cookie_worked():
+        print(">>>> TESTWORKED!!!!")
+        request.session.delete_test_cookie()
+
+    job = kar.objects.get(pk=num)
+    # response = render_to_response('explanations/details.html' , {'job': job} , context)
+    response = render(request, 'explanations/details.html', {'job': job})
+    response.set_cookie('last', num)
+    return response
 
 

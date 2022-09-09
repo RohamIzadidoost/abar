@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'page1/main.css' %} ">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+{% if user.is_authenticated and user.karfarma.master %}
+<div class="container-fluid">
+    <div class="row">
+        <div id="main-content" class="col-md-9">
+            <h1> سامانه‌ی انجام کار</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>عنوان کار</th>
+                    <th>ارزش کار</th>
+                    <th>تخمین زمانی</th>
+                    <th>صاحب کار</th>
+                    <th>توضیحات</th>
+                </tr>
+                </thead>
+            </table>
+            
+        <div class="col-md-3">
+      	    {% if request.user.is_authenticated %}
+        	<h3> سلام {{ request.user.username }} عزیز </h3>
+        	<form action="{% url 'page1:LogoutView' %}" method="POST">
+        	{% csrf_token %}
+        	 <button class="btn btn-default btn-block">خروج</button>
+        	</form>
+        {% endif %}
+        </div>
+    </div>
+    <footer>
+        <hr/>
+        <span> درباه‌ی ما</span>
+        <span>قوانین</span>
+    </footer>
+</div>
+{% else %}
+<h1> شما به این صفحه دسترسی ندارید! </h1>
+<h2> {{ user.username }} , {{ user.is_authenticated }} , {{ user.karfarma.master }} </h2>
+{% endif %}
+</body>
+</html>
