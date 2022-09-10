@@ -10,6 +10,7 @@ from django.contrib.auth.models import *
 from .forms import *
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_page
 # Create your views here.
 
 #class JobListView(ListView):
@@ -73,8 +74,8 @@ def AddJob(request):
         'user': user,
         'form': form,
     }
-    render(request , 'AddJob/AddJob.html' , context)
-    return redirect(reverse('page1:index'))
+    return render(request , 'AddJob/AddJob.html' , context)
+    #return redirect(reverse('page1:index'))
 
 def LoginView(request):
     username = request.POST.get('username')
@@ -92,6 +93,7 @@ def LogoutView(request):
     return redirect(reverse('page1:index'))
 
 @login_required
+@cache_page(60 * 5)
 def moreinf(request, num):
     context = RequestContext(request)
     if request.session.test_cookie_worked():
@@ -100,8 +102,9 @@ def moreinf(request, num):
 
     job = kar.objects.get(pk=num)
     bisahab = False
-    if job.user == None :
+    if job.user == None : #kargozae case shoud be handled
         bisahab = True
+        print(">>>>>" , request.user.karfarma)
     print(">>>>>> job user "  , job.user , bisahab)
     context = {
         'job':job,
